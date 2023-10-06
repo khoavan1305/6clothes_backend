@@ -112,6 +112,26 @@ class ProductController extends Controller
         ];
         return response()->json($arr);
     }
+    public function show_category_id(string $id)
+    {
+        $product_category = product::where('product_category_id',$id)->limit(4)->get();
+        if(is_null($product_category)){
+            $arr = [
+                'status' => False,
+                'code' => 409,
+                'messages' => "Sản phẩm không tồn tại",
+                'data' => [],
+            ];
+            return response()->json($arr);
+        }
+        $arr = [
+            'status' => True,
+            'code' => 200,
+            'messages' => "Chi tiết sản phẩm",
+            'data' => $product_category
+        ];
+        return response()->json($arr);
+    }
 
     /**
      * Show the form for editing the specified resource.
