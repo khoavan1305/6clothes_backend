@@ -105,53 +105,7 @@ class UserController extends Controller
     {
         
     }
-    // public function update(Request $request,User $user)
-    // {
        
-    //     $input = $request->all();
-    //     $validator = Validator::make($input, [  
-    //         'old_password' => 'required',
-    //         'new_password' => 'required|min:6',
-    //         'confirm_password' => 'required|same:new_password',
-    //     ],[
-    //         'old_password.required' => 'password không để trống',
-    //         'new_password.required' => 'password không để trống',
-    //         'new_password.min' => 'password ít nhất phải có 6 kí tự',
-    //         'confirm_password.required' => 'password không để trống',
-    //         'confirm_password.same' => 'Xác nhận mật khẩu không hợp lệ',
-    //     ]);
-    //     if ( $validator->fails()) {
-    //         $arr=[
-    //             'status' => false,
-    //             'code'=> 409,
-    //             'Message'=> "lỗi kiểm tra dữ liệu", 
-    //             'data'=> $validator->errors(), 
-    //         ];
-    //         return response()->json($arr);
-    //     }
-    //     $users = User::where('id',$request->id)->get();
-    //     if(password_verify ( $input['old_password'], $users[0]["password"] )){
-    //         $user->password = $input['new_password'];
-    //         $user->save();
-    //         $arr=[
-    //             'status'=> true,
-    //             'code'=> 200,
-    //             'Message'=> "Cập nhật thành công", 
-    //             'data'=> $user
-    //         ];
-    //         return response()->json($arr);
-    //     }else{
-    //         $arr=[
-    //             'status'=> false,
-    //             'code'=> 401,
-    //             'Message'=> "Mật khẩu cũ không chính xác", 
-    //         ];
-    //         return response()->json($arr);
-    //     }
-       
-           
-    
-    // }
     public function updatepw(Request $request, User $user)
     {
         $input = $request->all();
