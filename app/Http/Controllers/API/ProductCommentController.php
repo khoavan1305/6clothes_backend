@@ -49,6 +49,7 @@ class ProductCommentController extends Controller
             'email' => $request->email,
             'user_id' => $request->iduser,
             'product_id' => $request->idpro,
+            'avatar' => $request->avatar,
         ]);
         $arr=[
             'status' => true,

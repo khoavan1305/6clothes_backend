@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('messages');
             $table->integer('rating');
+            $table->string('avatar');
+            $table->double('status')->default(0);
 
             $table->timestamps();
         });
