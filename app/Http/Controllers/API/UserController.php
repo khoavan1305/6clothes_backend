@@ -31,16 +31,26 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:25',
             'email' => 'required|email',
-            'password' => 'required|min:6',
-            
+            'password' => [
+                'required',
+                'string',
+                'min:8',             // must be at least 8 characters in length
+                'regex:/[a-z]/',      // must contain at least one lowercase letter
+                'regex:/[A-Z]/',      // must contain at least one uppercase letter
+                'regex:/[0-9]/',      // must contain at least one digit
+            ],
+            'password_confirm' => 'required|same:password',
         ],[
         'name.required' => 'Name không để trống',
         'name.max' => 'Name không quá 25 ký tự',
         'email.required' => 'email không để trống',
         'email.email' => 'email không đúng định dạng',
         'password.required' => 'password không để trống',
-        'password.min' => 'password ít nhất phải có 6 kí tự',
-
+        'password.min' => 'password ít nhất phải có 8 kí tự',
+        'password.regex' => 'password ít nhất phải có 8 kí tự,1 kí tự Hoa,1 kí tự thường,1 chữ số',
+        'password_confirm.same' => 'password_confirm không hợp lệ',
+        'password_confirm.required' => 'password_confirm không để trống',
+        
         ]);
         if ( $validator->fails()) {
             $response['status'] = false;
@@ -105,18 +115,25 @@ class UserController extends Controller
     {
         
     }
-       
     public function updatepw(Request $request, User $user)
     {
         $input = $request->all();
         $validator = Validator::make($input, [  
             'old_password' => 'required',
-            'new_password' => 'required|min:6',
+            'new_password' => [
+                'required',
+                'string',
+                'min:8',             // must be at least 8 characters in length
+                'regex:/[a-z]/',      // must contain at least one lowercase letter
+                'regex:/[A-Z]/',      // must contain at least one uppercase letter
+                'regex:/[0-9]/',      // must contain at least one digit
+            ],
             'confirm_password' => 'required|same:new_password',
         ],[
             'old_password.required' => 'password không để trống',
-            'new_password.required' => 'password không để trống',
-            'new_password.min' => 'password ít nhất phải có 6 kí tự',
+            'new_password.required' => 'new_password không để trống',
+            'new_password.min' => 'new_password ít nhất phải có 8 kí tự',
+            'new_password.regex' => 'new_password ít nhất phải có 8 kí tự,1 kí tự Hoa,1 kí tự thường,1 chữ số',
             'confirm_password.required' => 'password không để trống',
             'confirm_password.same' => 'Xác nhận mật khẩu không hợp lệ',
         ]);
@@ -208,7 +225,6 @@ class UserController extends Controller
             ];
             return response()->json($arr);
         }
-      
     }
     public function destroy(User $user)
     {
@@ -224,14 +240,12 @@ class UserController extends Controller
     public function login(Request $request){
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
-            'password' => 'required|min:6',
-            
+            'password' => 'required|min:8',
         ],[
         'email.required' => 'email không để trống',
         'email.email' => 'email không đúng định dạng',
         'password.required' => 'password không để trống',
         'password.min' => 'password ít nhất phải có 6 kí tự',
-
         ]);
         if ( $validator->fails()) {
             $response['status'] = false;
@@ -264,7 +278,6 @@ class UserController extends Controller
             return response()->json($arr);
         }
     }
-    
     public function changeAvatar(Request $request,User $user ){
         // dd($user->product_comment[0]['avatar']);
         $proComment = product_comment::where('user_id',$user['id'])->first();
@@ -275,8 +288,8 @@ class UserController extends Controller
             $request->merge(['images'=>$file_name]); 
             $request->images->move('C:\Users\84786\Downloads\abc\6clothes_FE\src\assets\img', $file_name);
             $user->avatar = $file_name;
-            $proComment ->avatar = $file_name;
-            $proComment->save();
+            // $proComment ->avatar = $file_name;
+            // $proComment->save();
             $user->save();
         $arr=[
             'status'=> true,
@@ -355,13 +368,21 @@ class UserController extends Controller
     }
     public function getPassword(Request $request){
         $validator = Validator::make($request->all(), [  
-            'new_password' => 'required|min:6',
+            'new_password' => [
+                'required',
+                'string',
+                'min:8',             // must be at least 8 characters in length
+                'regex:/[a-z]/',      // must contain at least one lowercase letter
+                'regex:/[A-Z]/',      // must contain at least one uppercase letter
+                'regex:/[0-9]/',      // must contain at least one digit
+            ],
             'new_password_confirm' => 'required|same:new_password',
         ],[
-            'new_password.required' => 'New_password không để trống',
-            'new_password.min' => 'Ít nhất 6 ký tự',
-            'new_password_confirm.required' => 'new_password_confirm không để trống',
-            'new_password_confirm.same' => 'new_password_confirm Không hợp lệ',
+            'new_password.required' => 'new_password không để trống',
+            'new_password.min' => 'new_password ít nhất phải có 8 kí tự',
+            'new_password.regex' => 'new_password ít nhất phải có 8 kí tự,1 kí tự Hoa,1 kí tự thường,1 chữ số',
+            'confirm_password.required' => 'password không để trống',
+            'confirm_password.same' => 'Xác nhận mật khẩu không hợp lệ',
         ]);
         $user_id = Cache::get("id", "default");
         $token = Cache::get("token", "default");
@@ -396,5 +417,4 @@ class UserController extends Controller
             return response()->json($arr);
         }
     }
-    
 }
