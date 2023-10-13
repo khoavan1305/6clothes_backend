@@ -31,24 +31,10 @@ class OrderDetallController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'company_name' => 'required',
-            'country' => 'required',
-            'street_address' => 'required',
-            'city' => 'required',
-            'email' => 'required|email',
-            'phone' => 'required',
-        ],[
-        'first_name.required' => 'first_name không để trống',
-        'last_name.required' => 'last_name không để trống',
-        'company_name.required' => 'company_name không để trống',
-        'country.required' => 'country không để trống',
-        'street_address.required' => 'street_address không để trống',
-        'city.required' => 'city không để trống',
-        'email.required' => 'email không để trống',
-        'email.email' => 'email không đúng định dạng',
-        'phone.required' => 'phone không để trống',
+            'order_id' => 'required',
+            'product_id' => 'required',
+            'total' => 'required',
+            'amount' => 'required',
         ]);
         if ( $validator->fails()) {
             $response['status'] = false;
@@ -58,20 +44,16 @@ class OrderDetallController extends Controller
             return response()->json($response);
         }
 
-        $order_detaill = order_detaill::create([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'company_name' => $request->company_name,
-            'country' => $request->country,
-            'street_address' => $request->street_address,
-            'city' => $request->city,
-            'email' => $request->email,
-            'phone' => $request->phone,
+        $order_detail = order_detaill::create([
+            'order_id' => $request->order_id,
+            'product_id' => $request->product_id,
+            'total' => $request->total,
+            'amount' => $request->amount,
         ]);
         $response['status'] = true;
         $response['code'] = 200;
         $response['messeage'] = "Tạo thành công";
-        $response['data'] = $order_detaill;
+        $response['data'] = $order_detail;
         
         return response()->json($response);
     }

@@ -280,7 +280,7 @@ class UserController extends Controller
     }
     public function changeAvatar(Request $request,User $user ){
         // dd($user->product_comment[0]['avatar']);
-        $proComment = product_comment::where('user_id',$user['id'])->first();
+        $proComment = product_comment::where('user_id',$user['id'])->get();
         if($request->has('images')){
             $file = $request->images;
             $ext = $request->file('images')->getClientOriginalExtension();
@@ -297,6 +297,11 @@ class UserController extends Controller
             'Message'=> "Cập nhật thành công", 
             'data'=> $user, 
         ];
+        for ($i=0; $i < count($proComment); $i++) { 
+            $proComment[$i]->avatar =$file_name ;
+            $proComment[$i]->save();
+        }
+
         return response()->json($arr);
         }else{
             $arr=[

@@ -19,6 +19,9 @@ class User extends Authenticatable
     public function product_comment(){
         return $this->hasMany(product_comment::class,'user_id','id');
     }
+    public function product_like(){
+        return $this->hasMany(product_like::class,'user_id','id');
+    }
     use HasApiTokens, HasFactory, Notifiable;
 
     /**

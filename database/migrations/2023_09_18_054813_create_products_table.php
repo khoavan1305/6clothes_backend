@@ -21,7 +21,6 @@ return new class extends Migration
             $table->text('content')->nullable();
             $table->double('price');
             $table->double('discount')->nullable();
-            $table->integer('amount');
             $table->string('tag')->nullable();
             $table->boolean('featured')->default(0);
             $table->string('image');

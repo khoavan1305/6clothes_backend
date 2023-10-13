@@ -13,21 +13,20 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-
+            $table->integer('user_id')->unsigned();
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('company_name')->nullable();
-            $table->string('country');
             $table->string('street_address');
             $table->string('city');
             $table->string('email')->nullable();
             $table->string('phone',11);
             $table->string('note')->nullable();
             $table->string('pttt');
+            $table->string('note');
+            $table->double('total');
             $table->double('status')->default(0);
             $table->string('token',20);
 
-            
             $table->timestamps();
         });
     }

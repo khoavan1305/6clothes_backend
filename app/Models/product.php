@@ -27,6 +27,9 @@ class product extends Model
     public function order_detaill(){
         return $this->hasMany(order_detaill::class,'product_id','id');
     }
+    public function product_like(){
+        return $this->hasOne(product_like::class,'product_id','id');
+    }
     public function scopeSearch($query){
         if($key=request()->key){
             $query=$query->where('name','like','%'.$key.'%');
