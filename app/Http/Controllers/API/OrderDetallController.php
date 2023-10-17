@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\order_detaill;
+use App\Models\product;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 class OrderDetallController extends Controller
@@ -63,11 +64,26 @@ class OrderDetallController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $order_detaill = order_detaill::where("order_id",$id)->get();
+        if(is_null($order_detaill)){
+            $arr = [
+                'status' => False,
+                'code' => 409,
+                'messages' => "Đơn hàng không tồn tại",
+                'data' => [],
+            ];
+            return response()->json($arr);
+        }
+        $arr = [
+            'status' => True,
+            'code' => 200,
+            'messages' => "Chi tiết đơn hàng",
+            'data' => $order_detaill
+        ];
+        return response()->json($arr);
     }
 
     /**
-     * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {

@@ -36,6 +36,8 @@ Route::get('/NewP',[ProductController::class, 'NewP']);
 Route::get('/HotP',[ProductController::class, 'HotP']);
 Route::get('/show_category_id/{product}',[ProductController::class, 'show_category_id']);
 
+Route::get('/getOrderID/{id}',[OrderController::class, 'getOrderID']);
+
 Route::prefix('/')->group(function () {
     Route::resources([
         'user' => App\Http\Controllers\API\UserController::class,

@@ -138,12 +138,12 @@ class OrderController extends Controller
      */
     public function show(string $id)
     {
-        $order = order::find($id);
+        $order = order::where("user_id",$id)->get();
         if(is_null($order)){
             $arr = [
                 'status' => False,
                 'code' => 409,
-                'messages' => "Sản phẩm không tồn tại",
+                'messages' => "Đơn hàng không tồn tại",
                 'data' => [],
             ];
             return response()->json($arr);
@@ -151,7 +151,27 @@ class OrderController extends Controller
         $arr = [
             'status' => True,
             'code' => 200,
-            'messages' => "Chi tiết sản phẩm",
+            'messages' => "Chi tiết đơn hàng",
+            'data' => $order
+        ];
+        return response()->json($arr);
+    }
+    public function getOrderID(string $id)
+    {
+        $order = order::where("id",$id)->get();
+        if(is_null($order)){
+            $arr = [
+                'status' => False,
+                'code' => 409,
+                'messages' => "Đơn hàng không tồn tại",
+                'data' => [],
+            ];
+            return response()->json($arr);
+        }
+        $arr = [
+            'status' => True,
+            'code' => 200,
+            'messages' => "Chi tiết đơn hàng",
             'data' => $order
         ];
         return response()->json($arr);
