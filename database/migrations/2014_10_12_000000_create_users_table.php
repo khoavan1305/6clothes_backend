@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('phone',11)->nullable();
             $table->date('date')->nullable();
-            $table->string('avatar')->nullable();
+            $table->string('avatar')->default("avatar1.png");
             $table->string('address');
             $table->tinyInteger('level')->default(2);
             $table->rememberToken();

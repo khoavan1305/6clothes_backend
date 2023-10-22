@@ -18,9 +18,9 @@ use App\Http\Controllers\API\UserController;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});
 Route::post('/login',[UserController::class, 'login']);
 Route::put('/updatepw/{user}',[UserController::class, 'updatepw']);
 Route::put('/updatettcn/{user}',[UserController::class, 'updatettcn']);
