@@ -34,10 +34,10 @@ class UserController extends Controller
             'password' => [
                 'required',
                 'string',
-                'min:8',             // must be at least 8 characters in length
-                'regex:/[a-z]/',      // must contain at least one lowercase letter
-                'regex:/[A-Z]/',      // must contain at least one uppercase letter
-                'regex:/[0-9]/',      // must contain at least one digit
+                'min:8',             
+                'regex:/[a-z]/',      
+                'regex:/[A-Z]/',     
+                'regex:/[0-9]/',      
             ],
             'password_confirm' => 'required|same:password',
         ],[
@@ -123,10 +123,10 @@ class UserController extends Controller
             'new_password' => [
                 'required',
                 'string',
-                'min:8',             // must be at least 8 characters in length
-                'regex:/[a-z]/',      // must contain at least one lowercase letter
-                'regex:/[A-Z]/',      // must contain at least one uppercase letter
-                'regex:/[0-9]/',      // must contain at least one digit
+                'min:8',             
+                'regex:/[a-z]/',      
+                'regex:/[A-Z]/',      
+                'regex:/[0-9]/',      
             ],
             'confirm_password' => 'required|same:new_password',
         ],[
@@ -279,7 +279,6 @@ class UserController extends Controller
         }
     }
     public function changeAvatar(Request $request,User $user ){
-        // dd($user->product_comment[0]['avatar']);
         $proComment = product_comment::where('user_id',$user['id'])->get();
         if($request->has('images')){
             $file = $request->images;
@@ -288,8 +287,6 @@ class UserController extends Controller
             $request->merge(['images'=>$file_name]); 
             $request->images->move('C:\Users\84786\Downloads\abc\6clothes_FE\src\assets\img', $file_name);
             $user->avatar = $file_name;
-            // $proComment ->avatar = $file_name;
-            // $proComment->save();
             $user->save();
         $arr=[
             'status'=> true,
@@ -376,10 +373,10 @@ class UserController extends Controller
             'new_password' => [
                 'required',
                 'string',
-                'min:8',             // must be at least 8 characters in length
-                'regex:/[a-z]/',      // must contain at least one lowercase letter
-                'regex:/[A-Z]/',      // must contain at least one uppercase letter
-                'regex:/[0-9]/',      // must contain at least one digit
+                'min:8',             
+                'regex:/[a-z]/',      
+                'regex:/[A-Z]/',      
+                'regex:/[0-9]/',      
             ],
             'new_password_confirm' => 'required|same:new_password',
         ],[

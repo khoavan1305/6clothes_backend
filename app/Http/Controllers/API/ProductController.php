@@ -9,9 +9,6 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $product = product::search()->get();
@@ -27,18 +24,9 @@ class ProductController extends Controller
         $product = product::where('featured',1)->limit(8)->get();
         return response()->json($product);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -88,10 +76,6 @@ class ProductController extends Controller
         }
         return response()->json($response);
     }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $product = product::find($id);
@@ -132,18 +116,10 @@ class ProductController extends Controller
         ];
         return response()->json($arr);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         //
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request,product $product)
     {
         $input = $request->all();
@@ -187,10 +163,6 @@ class ProductController extends Controller
         ];
         return response()->json($arr);
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(product $product)
     {
         $product->delete();

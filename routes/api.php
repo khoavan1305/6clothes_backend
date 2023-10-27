@@ -7,17 +7,6 @@ use App\Http\Controllers\API\OrderController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\UserController;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
-
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -37,6 +26,7 @@ Route::get('/HotP',[ProductController::class, 'HotP']);
 Route::get('/show_category_id/{product}',[ProductController::class, 'show_category_id']);
 
 Route::get('/getOrderID/{id}',[OrderController::class, 'getOrderID']);
+Route::get('/getOderUser/{id}',[OrderController::class, 'getOderUser']);
 
 Route::prefix('/')->group(function () {
     Route::resources([

@@ -9,26 +9,14 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 class OrderDetallController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $order_detaill = order_detaill::all();
         return response()->json($order_detaill);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -58,10 +46,6 @@ class OrderDetallController extends Controller
         
         return response()->json($response);
     }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $order_detaill = order_detaill::where("order_id",$id)->get();
@@ -82,27 +66,14 @@ class OrderDetallController extends Controller
         ];
         return response()->json($arr);
     }
-
-    /**
-     */
     public function edit(string $id)
     {
-        //
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         //
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
     }
 }

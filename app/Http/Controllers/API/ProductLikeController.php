@@ -9,26 +9,14 @@ use Illuminate\Support\Facades\Validator;
 
 class ProductLikeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $productLike = product_like::all();
         return response()->json($productLike);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -60,10 +48,6 @@ class ProductLikeController extends Controller
     ];
     return response()->json($arr);
     }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $product_like = product_like::where('user_id',$id)->get();
@@ -85,26 +69,12 @@ class ProductLikeController extends Controller
             return response()->json($arr);
         }
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(product_like $product_like)
     {
-        //
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, product_like $product_like)
     {
-        //
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(product_like $product_like)
     {
         $product_like->delete();

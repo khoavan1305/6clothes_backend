@@ -23,17 +23,10 @@ class OrderController extends Controller
         return response()->json($order);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         Cache::put('cart', $request['array']);
@@ -133,12 +126,29 @@ class OrderController extends Controller
 
             }
     }
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $order = order::where("user_id",$id)->get();
+        if(is_null($order)){
+            $arr = [
+                'status' => False,
+                'code' => 409,
+                'messages' => "Đơn hàng không tồn tại",
+                'data' => [],
+            ];
+            return response()->json($arr);
+        }
+        $arr = [
+            'status' => True,
+            'code' => 200,
+            'messages' => "Chi tiết đơn hàng",
+            'data' => $order
+        ];
+        return response()->json($arr);
+    }
+    public function getOderUser(string $id)
+    {
+        $order = order::orderBy('user_id', 'desc')->first();
         if(is_null($order)){
             $arr = [
                 'status' => False,
@@ -177,17 +187,10 @@ class OrderController extends Controller
         return response()->json($arr);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
-        //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, order $order)
     {
         $input = $request->all();
@@ -241,9 +244,6 @@ class OrderController extends Controller
         return response()->json($arr);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(order $order)
     {
         $order->delete();

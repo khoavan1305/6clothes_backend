@@ -83,11 +83,9 @@ class ProductCommentController extends Controller
     }
     public function edit(string $id)
     {
-        //
     }
     public function update(Request $request, string $id)
     {
-        //
     }
     public function destroy(product_comment $productCmt)
     {

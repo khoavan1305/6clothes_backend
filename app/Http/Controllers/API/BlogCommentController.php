@@ -9,26 +9,16 @@ use Illuminate\Http\Request;
 
 class BlogCommentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $blog_comment = blog_comment::all();
         return response()->json($blog_comment);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -63,9 +53,6 @@ class BlogCommentController extends Controller
         return response()->json($response);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $blog_comment = blog_comment::find($id);
@@ -87,17 +74,11 @@ class BlogCommentController extends Controller
         return response()->json($arr);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, blog_comment $blog_comment)
     {
         $input = $request->all();
@@ -129,10 +110,6 @@ class BlogCommentController extends Controller
         ];
         return response()->json($arr);
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(blog_comment $blog_comment)
     {
         $blog_comment->delete();
