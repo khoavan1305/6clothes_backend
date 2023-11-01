@@ -22,6 +22,12 @@ class User extends Authenticatable
     public function product_like(){
         return $this->hasMany(product_like::class,'user_id','id');
     }
+    public function scopeSearch($query){
+        if($key=request()->key){
+            $query=$query->where('email','like','%'.$key.'%');    
+        }
+        return $query;
+    }
     use HasApiTokens, HasFactory, Notifiable;
 
     /**

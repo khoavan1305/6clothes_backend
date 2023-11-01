@@ -52,6 +52,9 @@
             "dont-discover": []
         }
     },
+    "conflict": {
+        "ext-psr": "*"
+    },
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",

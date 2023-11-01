@@ -123,7 +123,6 @@ class OrderController extends Controller
                    return "<script>alert('Thời gian xác nhận đã hết hạn.Đơn hàng đã bị hủy');
                    window.location='http://localhost:4200/';
                    </script>";
-
             }
     }
     public function show(string $id)
@@ -148,7 +147,7 @@ class OrderController extends Controller
     }
     public function getOderUser(string $id)
     {
-        $order = order::orderBy('user_id', 'desc')->first();
+        $order = order::orderBy('user_id', 'asc')->first();
         if(is_null($order)){
             $arr = [
                 'status' => False,

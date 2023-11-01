@@ -7,9 +7,9 @@ use App\Http\Controllers\API\OrderController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\UserController;
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth.basic')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 Route::post('/login',[UserController::class, 'login']);
 Route::put('/updatepw/{user}',[UserController::class, 'updatepw']);
 Route::put('/updatettcn/{user}',[UserController::class, 'updatettcn']);
