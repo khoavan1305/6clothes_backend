@@ -20,15 +20,16 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->text('content')->nullable();
             $table->double('price');
+            $table->double('amount');
             $table->double('discount')->nullable();
             $table->string('tag')->nullable();
             $table->boolean('featured')->default(0);
             $table->string('image');
+            $table->integer('status')->default(0);
 
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */

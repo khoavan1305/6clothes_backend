@@ -46,8 +46,19 @@
                                 <input type="file" id="images" name="file_upload" class="form-control">
                             </div>
                             <div class="form-group">
-                                <strong>level</strong>
-                                <input type="text" name='level' class="form-control" value="{{ $user->level }}">
+                                <strong>Cấp độ tài khoản</strong>
+                                @if ($user->level === 1)
+                                    <input type="radio" name='level' id="admin" value="1" checked>
+                                    <label for="admin">Quản trị</label>
+                                    <input type="radio" name="level" id="user"value="2">
+                                    <label for="user">Khách hàng</label>
+                                @elseif ($user->level === 2)
+                                    <input type="radio" name='level' id="admin" value="1">
+                                    <label for="admin">Quản trị</label>
+                                    <input type="radio" name="level" id="user"value="2" checked>
+                                    <label for="user">Khách hàng</label>
+                                @endif
+
                             </div>
                         </div>
                     </div>

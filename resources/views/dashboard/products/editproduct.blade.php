@@ -31,7 +31,8 @@
                 @endif
 
             </div>
-            <div class="card-body">
+
+            <div class="card-body col-lg">
                 <form action="{{ route('product.update', $product->id) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
@@ -44,20 +45,28 @@
                                     class="form-control">
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="price">Giá</label>
-                                <input id="price" name="price" type="text" value="{{ $product->price }}"
-                                    class="form-control">
+                                <input id="price" name="price" min="0" type="number"
+                                    value="{{ $product->price }}" class="form-control">
                             </div>
+                        </div>
+                        <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="price">Giá(Sale)</label>
-                                <input id="price" name="discount" type="number"value="{{ $product->discount }}"
-                                    class="form-control">
+                                <input id="price" name="discount" min="0"
+                                    type="number"value="{{ $product->discount ?? 0 }}" class="form-control">
                             </div>
-
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="price">Số Lượng</label>
+                                <input id="price" name="amount" min="0"
+                                    type="number"value="{{ $product->amount }}" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="control-label">Danh mục</label>
                                 <select class="form-control select2 select2-hidden-accessible" data-select2-id="1"
@@ -71,46 +80,73 @@
                                         @endif
                                     @endforeach
                                 </select>
-                                <label class="control-label">Features</label>
-                                <select class="form-control select2 select2-hidden-accessible" data-select2-id="1"
-                                    tabindex="-1" aria-hidden="true" name="featured">
-                                    <option data-select2-id="3"value="0">Bình thường</option>
-                                    <option value="1">Nổi bật</option>
-                                    <option value="2">Hàng mới</option>
-                                    <option value="3">Giảm giá</option>
-                                </select>
-                                <label class="control-label">Thương hiệu</label>
-                                <select class="form-control select2 select2-hidden-accessible" data-select2-id="1"
-                                    tabindex="-1" aria-hidden="true"name="brand_id">
-                                    <option value="{{ $product->brand_id }}">
-                                        {{ $product->Brand->name }}
-                                    </option>
-
-                                    @foreach ($brand as $bra)
-                                        @if ($bra->id != $product->brand_id)
-                                            <option value="{{ $bra->id }}">{{ $bra->name }}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-
-                            </div>
-                            <div class="form-group">
-                                <label for="images">Hình ảnh</label>
-                                <input type="file" id="images" name="file_upload" value="{{ $product->images }}"
-                                    class="form-control">
                             </div>
                         </div>
-                        <div class="col-sm-12">
+                        <div class="col-sm-6">
+
+                            <label class="control-label">Đặc tả sản phẩm</label>
+                            <select class="form-control select2 select2-hidden-accessible" data-select2-id="1"
+                                tabindex="-1" aria-hidden="true" name="featured">
+                                <option data-select2-id="3"value="0">Bình thường</option>
+                                <option value="1">Nổi bật</option>
+                                <option value="2">Hàng mới</option>
+                                <option value="3">Giảm giá</option>
+                            </select>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <label class="control-label">Thương hiệu</label>
+                            <select class="form-control select2 select2-hidden-accessible" data-select2-id="1"
+                                tabindex="-1" aria-hidden="true"name="brand_id">
+                                <option value="{{ $product->brand_id }}">
+                                    {{ $product->Brand->name }}
+                                </option>
+
+                                @foreach ($brand as $bra)
+                                    @if ($bra->id != $product->brand_id)
+                                        <option value="{{ $bra->id }}">{{ $bra->name }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="productdesc">Mô Tả Sản phẩm</label>
-                                <textarea class="form-control" id="summernote" name="description" rows="5"></textarea>
+                                <label class="control-label">Ản Hiện Sản Phẩm</label> <br>
+                                @if ($product->status === 0)
+                                    <input type="radio" name='status' id="hien" value="0" checked>
+                                    <label for="hien">Hiện sản phẩm</label>
+                                    <input type="radio" name="status" id="an"value="1">
+                                    <label for="an">Ẩn sản phẩm</label>
+                                @elseif ($product->status === 1)
+                                    <input type="radio" name='status' id="hien" value="0">
+                                    <label for="hien">Hiện sản phẩm</label>
+                                    <input type="radio" name="status" id="an"value="1" checked>
+                                    <label for="an">Ẩn sản phẩm</label>
+                                @endif>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="images">Hình ảnh</label>
+                                <input type="file" id="imageFile" onchange="chooseFile(this)" name="file_upload"
+                                    class="form-control" value="{{ $product->image }}"><br>
+                                <img src="{{ asset('fonts/images') }}/{{ $product->image }}" alt=""
+                                    id="image" width="100" height="100">
                             </div>
                         </div>
                     </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="productdesc">Mô Tả Sản phẩm</label>
+                            <textarea class="form-control" id="summernote" name="description" rows="12"></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success mr-1 waves-effect waves-light col-sm-4"
+                        style="margin-left: 10px">lưu</button>
+                    <a style="float:right" href="{{ route('product.index') }}"
+                        class="btn btn-secondary waves-effect col-sm-4">Thoát</a>
+                </form>
             </div>
-            <button type="submit" class="btn btn-success mr-1 waves-effect waves-light">lưu</button> <br>
-            <a href="{{ route('product.index') }}" class="btn btn-secondary waves-effect">Thoát</a>
-            </form>
 
         </div>
     </div>
@@ -128,5 +164,17 @@
         $(function() {
             $('#summernote').summernote()
         })
+    </script>
+    <script>
+        function chooseFile(fileInput) {
+            if (fileInput.files && fileInput.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#image').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
     </script>
 @endsection

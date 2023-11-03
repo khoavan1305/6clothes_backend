@@ -112,7 +112,7 @@ class ProductController extends Controller
             'status' => True,
             'code' => 200,
             'messages' => "Chi tiết sản phẩm",
-            'data' => $product_category
+            'data' => $product_category,
         ];
         return response()->json($arr);
     }

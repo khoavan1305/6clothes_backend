@@ -1,12 +1,12 @@
 @extends('dashboard.layouts.master')
 @section('title', 'Order')
 @section('body')
-    <div class="orders " style="padding-left: 20px">
-        <div class="row">
+    <div style="padding-left: 20px">
+        <div class="col-sm">
             <div class="">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="btn btn-warning">Orders </h4>
+                        <h4 class="btn btn-warning">Đơn Hàng </h4>
                     </div>
                     @if (Session::has('thongbao'))
                         <div class="alert alert-success">
@@ -69,6 +69,9 @@
                                                 @endif
                                                 @if ($Order->status == 5)
                                                     <span class="badge badge-secondary">Hủy</span>
+                                                @endif
+                                                @if ($Order->status == 6)
+                                                    <span class="badge badge-secondary">Chưa thanh toán</span>
                                                 @endif
                                             </td>
                                             <td><a href="{{ route('orderdetail.show', $Order->id) }}"

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\back;
 
 use App\Http\Controllers\Controller;
 use App\Models\product_comment;
-use App\Models\BlogComment;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -14,8 +13,8 @@ class CommentController extends Controller
      */
     public function index()
     {
-        $Product_comment=product_comment::paginate('5');
-        return view('dashboard.comment',compact('Product_comment'));
+        $Product_comment=product_comment::paginate('10');
+        return view('dashboard.comments.comment',compact('Product_comment'));
     }
 
     /**
@@ -37,9 +36,10 @@ class CommentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(product_comment $product_comment)
+    public function show($id)
     {
-        //
+        $comment = product_comment::where("id",$id)->first();
+        return view("dashboard.comments.commentdetaill",compact("comment"));
     }
 
     /**
@@ -53,16 +53,22 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, product_comment $product_comment)
+    public function update(Request $request, $id)
     {
-        //
+        $comment = product_comment::where("id",$id)->first();
+        $comment->update([
+            'status'=>$request->status,
+        ]);
+        return  redirect()->route('comment.index')->with('thongbao','Cập nhật thành công');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(product_comment $product_comment)
+    public function destroy($id)
     {
-        //
+        $product_comment = product_comment::where("id",$id)->first();
+        $product_comment->delete();
+        return  redirect()->route('comment.index')->with('thongbao','Xóa thành công');
     }
 }

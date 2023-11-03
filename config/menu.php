@@ -2,61 +2,61 @@
     return [
      
         [
-        'label'=> 'Product Manager',
+        'label'=> 'Quản lý sản phẩm',
         'route'=> 'product.index',
         'icon'=> ' fa-archive',
         'item' => [
             [
-            'label'=> 'All product',
+            'label'=> 'Danh sách sản phẩm',
             'route'=> 'product.index'
         ],
         [
-            'label'=> 'Add product',
+            'label'=> 'Thêm sản phẩm',
             'route'=> 'product.create'
         ],
     ],
         ],
         [
-        'label'=> 'Users Manager',
+        'label'=> 'Quản lý tài khoản',
         'route'=> 'user.index',
         'icon'=> 'fa-user',
         'item' => [
             [
-            'label'=> 'All User',
+            'label'=> 'Danh sách tài khoản',
             'route'=> 'user.index'
 
         ],
         [
-            'label'=> 'Add User',
+            'label'=> 'Thêm tài khoản',
             'route'=> 'user.create'
 
         ],
     ],
         ],
         [
-        'label'=> 'Comments Manager',
+        'label'=> 'Quản lý bình luận',
         'route'=> 'comment.index',
         'icon'=> ' fa-comments',
         'item' => [
             [
-            'label'=> 'All comment',
+            'label'=> 'Danh sách bình luận',
             'route'=> 'comment.index'
 
         ],
         [
-            'label'=> 'Add comment',
+            'label'=> 'Thêm bình luận',
             'route'=> 'comment.create'
 
         ],
     ],
         ],
         [
-        'label'=> 'Order Manager',
+        'label'=> 'Quản lý đơn hàng',
         'route'=> 'order.index',
         'icon'=> 'fa-shopping-cart',
         'item' => [
             [
-            'label'=> 'All order',
+            'label'=> 'Danh sách',
             'route'=> 'order.index'
         ],
     ],

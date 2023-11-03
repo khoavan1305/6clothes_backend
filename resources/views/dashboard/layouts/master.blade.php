@@ -9,7 +9,7 @@
         <head>
             <meta charset="utf-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <title>@yield('title') | DASHBOARH</title>
+            <title>@yield('title') | Admin - 6Clothes</title>
             <meta name="description" content="Ela Admin - HTML5 Admin Template">
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
@@ -83,7 +83,7 @@
                     <div id="main-menu" class="main-menu collapse navbar-collapse">
                         <ul class="nav navbar-nav">
                             <li class="active">
-                                <a href="{{ route('admin.dashboard') }}"> <i class="fa fa-home"></i> Dashboard
+                                <a href="{{ route('admin.dashboard') }}"> <i class="fa fa-home"></i> Trang Quản Trị
                                 </a>
                             </li>
                             <li class="menu-title"> <i class="fa fa-gears "></i> Quản lý dữ liệu
@@ -113,10 +113,10 @@
                 <header id="header" class="header">
                     <div class="top-left">
                         <div class="navbar-header">
-                            <a class="navbar-brand" href=""><img src="{{ asset('dashboard/images/') }}"
-                                    alt="Logo"></a>
+                            <a class="navbar-brand" href=""><img
+                                    src="{{ asset('dashboard/images/logo admin.jpg') }}" alt="Logo"></a>
                             <a class="navbar-brand hidden" href="./"><img
-                                    src="{{ asset('fonts/images/icons/logo-01.png') }}" alt="Logo"></a>
+                                    src="{{ asset('fonts/images/icons/logo_2.jpg') }}" alt="Logo"></a>
                             <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
                         </div>
                     </div>
@@ -130,15 +130,17 @@
                                 </a>
 
                                 <div class="user-menu dropdown-menu">
-                                    <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a>
+                                    <a class="nav-link" href="#"><i class="fa fa- user"></i>Thông tin tài
+                                        khoản</a>
 
-                                    <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications
+                                    <a class="nav-link" href="#"><i class="fa fa- user"></i>Thông báo
                                         <span class="count">13</span></a>
 
-                                    <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
+                                    <a class="nav-link" href="#"><i class="fa fa -cog"></i>Cài đặt</a>
 
                                     <a class="nav-link" href="{{ route('logout') }}"><i
-                                            class="fa fa-power -off"></i>Logout</a>
+                                            class="fa fa-power -off"></i>Đăng
+                                        xuất</a>
                                 </div>
                             </div>
 
@@ -155,10 +157,10 @@
                     <div class="footer-inner bg-white">
                         <div class="row">
                             <div class="col-sm-6">
-                                Copyright &copy; 2023 COZA STORE
+                                Copyright &copy; 6Clothes
                             </div>
                             <div class="col-sm-6 text-right">
-                                Designed by PS20220
+                                Designed by 6Clothes
                             </div>
                         </div>
                     </div>

@@ -45,16 +45,16 @@ class ProductController extends Controller
             $file = $request->file_upload;
            $ext = $request->file_upload->extension();
             $file_name ='product'.'-'.time().'.'.$ext;
-            $file->move(public_path('dashboard/images'),$file_name);
+            $file->move(public_path('fonts/images'),$file_name);
         }
         $request->merge(['image'=>$file_name]); 
-        // unset($request["image"]);
-        // dd($request->all());
         product::create([
             'brand_id'=>$request->brand_id,
             'product_category_id'=>$request->product_category_id,  
             'name' => $request->name,
             'price'=>$request->price,
+            'amount'=>$request->amount,
+            'status'=>$request->status,
             'discount'=>$request->discount,
             'featured'=>$request->featured,
             'description'=>$request->description,
@@ -78,14 +78,14 @@ class ProductController extends Controller
             'brand_id' => 'required',
             'product_category_id' => 'required',
             'price' => 'required',
-            'file_upload' => 'max:2000|mimes:jpeg,png,doc,docs,pdf|required'
+            'file_upload' => 'max:10000|mimes:jpeg,png,doc,docs,pdf|required'
 
         ]);
         if($request->has('file_upload')){
             $file = $request->file_upload;
            $ext = $request->file_upload->extension();
             $file_name ='product'.'-'.time().'.'.$ext;
-            $file->move(public_path('dashboard/images'),$file_name);
+            $file->move(public_path('fonts/images'),$file_name);
         }
         $request->merge(['image'=>$file_name]); 
         $product->update([
@@ -93,6 +93,8 @@ class ProductController extends Controller
             'product_category_id'=>$request->product_category_id,  
             'name' => $request->name,
             'price'=>$request->price,
+            'amount'=>$request->amount,
+            'status'=>$request->status,
             'discount'=>$request->discount,
             'featured'=>$request->featured,
             'description'=>$request->description,

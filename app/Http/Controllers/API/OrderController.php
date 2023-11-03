@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\order;
 use App\Models\order_detaill;
+use Exception;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
@@ -82,16 +83,33 @@ class OrderController extends Controller
                 'color' => $value['color'],
             ]);
         }
-        Mail::send('emails.check_order',compact('order','orderdetaill'), function ($message) use ($order,$orderdetaill) {
-            $message->subject('6Clothes - Xác nhận đơn hàng');
-            $message->to($order->email, $order->first_name);
-        });
-        $response['status'] = true;
-        $response['code'] = 200;
-        $response['messeage'] = "Tạo thành công";
-        $response['data'] = $order;
+        if($request->pttt == "Thanh toán khi nhận hàng"){
+            Mail::send('emails.check_order',compact('order','orderdetaill'), function ($message) use ($order,$orderdetaill) {
+                $message->subject('6Clothes - Xác nhận đơn hàng');
+                $message->to($order->email, $order->first_name);
+            });
+            $response['status'] = true;
+            $response['code'] = 200;
+            $response['messeage'] = "Tạo thành công";
+            $response['data'] = $order;
+            $response['orderID'] = $oderId;
+
+            return response()->json($response);
+        }
+        else if($request->pttt == "Chuyển khoản"){
+            $response['status'] = true;
+            $response['code'] = 200;
+            $response['messeage'] = "Tạo thành công";
+            $response['data'] = $order;
+            $response['orderID'] = $oderId;
+            $new_order = order::where('id',$oderId)->first();
+            $new_order->update([
+                'status' => 6
+            ]);
+            Cache::put('orderinf',$response,900);
+            return response()->json($response);
+        }
         
-        return response()->json($response);
     }
     public function checkOrder(Request $request, $order, $token){
         $token = Cache::get("token", "default");
@@ -108,7 +126,7 @@ class OrderController extends Controller
                  ]);
                     Cache::flush(); 
                    return "<script>alert('Xác nhận đơn hàng thành công');
-                   window.location='http://localhost:4200/';
+                   window.location='https://6clothes.click/';
                    </script>";
             }else{
                 $arr =[
@@ -121,7 +139,7 @@ class OrderController extends Controller
                  ]);
                  Cache::flush(); 
                    return "<script>alert('Thời gian xác nhận đã hết hạn.Đơn hàng đã bị hủy');
-                   window.location='http://localhost:4200/';
+                   window.location='https://6clothes.click/';
                    </script>";
             }
     }
@@ -254,4 +272,64 @@ class OrderController extends Controller
         ];
         return response()->json($arr);
     }
+    public function create_vnpay(Request $request)
+    {
+        $orderinf = Cache::get("orderinf", "default");
+        $vnp_TxnRef = $orderinf['orderID']; //Mã giao dịch thanh toán tham chiếu của merchant
+        $vnp_Amount = $orderinf['data']->total * 100; // Số tiền thanh toán
+        $vnp_Locale = "vn"; //Ngôn ngữ chuyển hướng thanh toán
+        $vnp_BankCode = ""; //Mã phương thức thanh toán
+        $vnp_IpAddr = $orderinf['orderID']; //IP Khách hàng thanh toán
+        $vnp_TmnCode = "MBB3TAV0"; //Mã định danh merchant kết nối (Terminal Id)
+        $vnp_HashSecret = "RJWVBDVDKDRQNGHUVGDPIMMYYHDRJTBY"; //Secret key
+        $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+        $vnp_Returnurl = "https://admin.6clothes.click/api/return";
+        
+        $inputData = array(
+            "vnp_Version" => "2.1.0",
+            "vnp_TmnCode" => "MBB3TAV0",
+            "vnp_Amount" => $vnp_Amount* 1000,
+            "vnp_Command" => "pay",
+            "vnp_CreateDate" => date('YmdHis'),
+            "vnp_CurrCode" => "VND",
+            "vnp_IpAddr" => $vnp_IpAddr,
+            "vnp_Locale" => $vnp_Locale,
+            "vnp_OrderInfo" =>  $vnp_TxnRef,
+            "vnp_OrderType" => "other",
+            "vnp_ReturnUrl" => $vnp_Returnurl,
+            "vnp_TxnRef" => $vnp_TxnRef,
+            // "vnp_ExpireDate"=>$expire_date,
+        );
+
+    if (isset($vnp_BankCode) && $vnp_BankCode != "") {
+    $inputData['vnp_BankCode'] = $vnp_BankCode;
+    }
+
+    ksort($inputData);
+    $query = "";
+    $i = 0;
+    $hashdata = "";
+    foreach ($inputData as $key => $value) {
+        if ($i == 1) {
+            $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
+        } else {
+            $hashdata .= urlencode($key) . "=" . urlencode($value);
+            $i = 1;
+        }
+        $query .= urlencode($key) . "=" . urlencode($value) . '&';
+    }
+
+        $vnp_Url = $vnp_Url . "?" . $query;
+        if (isset($vnp_HashSecret)) {
+            $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret);//  
+            $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
+        }
+        header('Location: ' . $vnp_Url);
+        die();
+    }
+    public function return(Request $request)
+    {
+        return view('vnpay.vnpay_return');
+    }
+
 }

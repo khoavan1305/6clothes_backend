@@ -283,7 +283,7 @@ class UserController extends Controller
             $ext = $request->file('images')->getClientOriginalExtension();
             $file_name ='avatar'.'-'.time().'.'.$ext;
             $request->merge(['images'=>$file_name]); 
-            $request->images->move('C:\Users\84786\Downloads\abc\6clothes_FE\src\assets\img', $file_name);
+            $request->images->move('fonts/avatars', $file_name);
             $user->avatar = $file_name;
             $user->save();
         $arr=[
@@ -416,5 +416,18 @@ class UserController extends Controller
             ];
             return response()->json($arr);
         }
+    }
+    public function sentMessage(Request $request){
+        $sent_message = $request->all();
+        Mail::send('emails.sent_message',compact('sent_message'), function ($message) use ($sent_message) {
+            $message->subject($sent_message['title']);
+            $message->to("khoavan1305@gmail.com",$sent_message['name']);
+        });
+        $response['status'] = true;
+        $response['code'] = 200;
+        $response['messeage'] = "Gửi thành công";
+        $response['data'] = $sent_message;
+
+        return response()->json($response);
     }
 }

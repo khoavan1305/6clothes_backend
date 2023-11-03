@@ -28,6 +28,12 @@ Route::get('/show_category_id/{product}',[ProductController::class, 'show_catego
 Route::get('/getOrderID/{id}',[OrderController::class, 'getOrderID']);
 Route::get('/getOderUser/{id}',[OrderController::class, 'getOderUser']);
 
+Route::get('/createvnpay/{id}',[OrderController::class, 'create_vnpay']);
+Route::get('/return',[OrderController::class, 'return']);
+
+Route::post('/sentmessage',[UserController::class, 'sentMessage']);
+
+
 Route::prefix('/')->group(function () {
     Route::resources([
         'user' => App\Http\Controllers\API\UserController::class,

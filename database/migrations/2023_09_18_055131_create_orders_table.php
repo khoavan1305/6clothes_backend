@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('phone',11);
             $table->string('note')->nullable();
             $table->string('pttt');
-            $table->string('note');
             $table->double('total');
             $table->double('status')->default(0);
             $table->string('token',20);

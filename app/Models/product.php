@@ -34,6 +34,24 @@ class product extends Model
         if($key=request()->key){
             $query=$query->where('name','like','%'.$key.'%');
         }
+        if($priceall=request()->priceall){
+            $query=$query->whereBetween('price',[0,$priceall]);    
+        }
+        if($price1=request()->price1){
+            $query=$query->whereBetween('price',[0,$price1]);    
+        }
+        if($price2=request()->price2){
+            $query=$query->whereBetween('price',[100,$price2]);    
+        }
+        if($price3=request()->price3){
+            $query=$query->whereBetween('price',[200,$price3]);    
+        }
+        if($price4=request()->price4){
+            $query=$query->whereBetween('price',[300,$price4]);    
+        }
+        if($price5=request()->price5){
+            $query=$query->whereBetween('price',[400,$price5]);    
+        }
         if($featured=request()->featured){
             $query=$query->orderBy('id','desc')->where('featured',$featured);    
         }

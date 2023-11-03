@@ -29,12 +29,12 @@
                                 <input type="text" name='name' value="{{ old('name') }}" class="form-control">
                             </div>
                             <div class="form-group">
-                                <strong>Email</strong>
+                                <strong>Địa chỉ E-mail</strong>
                                 <input type="text" name='email'value="{{ old('email') }}" class="form-control">
                             </div>
 
                             <div class="form-group">
-                                <strong>PassWord</strong>
+                                <strong>Mật khẩu</strong>
                                 <input type="password" name='password' value="{{ old('password') }}" class="form-control">
                             </div>
                         </div>
@@ -44,8 +44,11 @@
                                 <input type="file" id="images" name="file_upload" class="form-control">
                             </div>
                             <div class="form-group">
-                                <strong>level</strong>
-                                <input type="text" name='level' class="form-control">
+                                <strong>Cấp độ tài khoản</strong>
+                                <input type="radio" name='level' id="admin" value="1">
+                                <label for="admin">Quản trị</label>
+                                <input type="radio" name="level" id="user"value="2">
+                                <label for="user">Khách hàng</label>
                             </div>
                         </div>
                     </div>

@@ -2,8 +2,8 @@
 @section('title', 'User')
 @section('body')
 
-    <div class="container-fluid">
-        <div class="container float-right">
+    <div class="col-xl-9 container-fluid">
+        <div class="row-lg"><br>
             <form action="" method="GET" class="form-inline" role="form">
                 <div class="form-group">
                     <input type="text" name="key" class="form-control" placeholder="Tìm kiếm">
@@ -12,7 +12,8 @@
                 <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
             </form>
         </div>
-        <div class="row container-fluid">
+        <br>
+        <div class="row-xl">
             <div class="">
                 <div class="card">
                     <div class="card-body">
@@ -39,9 +40,7 @@
                                         <th>ID</th>
                                         <th style="min-width: 100px">Tên</th>
                                         <th>Email</th>
-                                        <th>Mật khẩu</th>
-                                        <th style="min-width: 100px">Cấp độ</th>
-                                        <th>Trạng thái</th>
+                                        <th style="min-width: 100px">Cấp độ tài khoản</th>
                                         <th>Hành Động</th>
                                     </tr>
                                 </thead>
@@ -57,23 +56,23 @@
                                             <td class="avatar">
                                                 <div class="round-img">
                                                     <a href="#"><img class="rounded-circle"
-                                                            src="{{ asset('dashboard/images/avatar') }}/{{ $User->avatar ?? '5.jpg' }}"
+                                                            src="{{ asset('fonts/avatars/') }}/{{ $User->avatar ?? '5.jpg' }}"
                                                             alt=""></a>
                                                 </div>
                                             </td>
                                             <td> #{{ $User->id }} </td>
                                             <td> <span class="name"> {{ $User->name }}</span> </td>
                                             <td> <span class="email">{{ $User->email }}</span> </td>
-                                            <td><span class="password">{{ $User->password }}</span></td>
-                                            <td><span class="name">{{ $User->level }}</span></td>
                                             <td>
-                                                <span class="badge badge-complete">Hoạt Động</span>
+                                                @if ($User->level === 1)
+                                                    <span class="name">Quản trị</span>
+                                                @elseif ($User->level === 2)
+                                                    <span class="name">Khách hàng</span>
+                                                @endif
                                             </td>
                                             <td>
                                                 <a href="{{ route('user.edit', $User->id) }}" class=" btn btn-warning">
                                                     <i class="fa fa-edit"></i> Sửa</a>
-                                                <hr>
-
                                                 <a href="{{ route('user.destroy', $User->id) }}"
                                                     class=" btn btn-danger btndelete"><i class="fa fa-trash"></i>
                                                     Xóa</a>

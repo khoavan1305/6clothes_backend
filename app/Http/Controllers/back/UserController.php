@@ -26,13 +26,13 @@ class UserController extends Controller
                     'email' => 'required|email|unique:users',
                     'password' => 'required|min:6',
                     'level' => 'required|min:1|max:2|numeric:1,2',
-            'file_upload' => 'max:2000|mimes:jpg,jpeg,png,doc,docs,pdf|required'
+            'file_upload' => 'max:10000|mimes:jpg,jpeg,png,doc,docs,pdf|required'
                 ]);
                 if($request->has('file_upload')){
                     $file = $request->file_upload;
                    $ext = $request->file_upload->extension();
                     $file_name ='product'.'-'.time().'.'.$ext;
-                    $file->move(public_path('dashboard/images/avatar'),$file_name);
+                    $file->move(public_path('fonts/avatars'),$file_name);
                 }
                 $request->merge(['avatar'=>$file_name]); 
                 User::create($request->all());
@@ -51,13 +51,13 @@ class UserController extends Controller
             'name' => 'required|max:25',
             'password' => 'required|min:6',
             'level' => 'required|min:1|max:2|numeric:1,2',
-            'file_upload' => 'max:2000|mimes:jpg,jpeg,png,doc,docs,pdf|required'
+            'file_upload' => 'max:10000|mimes:jpg,jpeg,png,doc,docs,pdf|required'
         ]);
         if($request->has('file_upload')){
             $file = $request->file_upload;
            $ext = $request->file_upload->extension();
             $file_name ='product'.'-'.time().'.'.$ext;
-            $file->move(public_path('dashboard/images/avatar'),$file_name);
+            $file->move(public_path('fonts/avatars'),$file_name);
         }
         $request->merge(['avatar'=>$file_name]);
         Hash::make($request->password);

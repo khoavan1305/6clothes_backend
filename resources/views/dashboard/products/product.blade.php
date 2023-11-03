@@ -3,10 +3,9 @@
 @section('body')
 
     <!-- Orders -->
-    <div class="orders container">
-
-        <div class="row">
-            <div class="container float-right">
+    <div class="col-xl container-fluid">
+        <div class="row-lg"><br>
+            <div class="row-xl">
                 <form action="" method="GET" class="form-inline" role="form">
                     <div class="form-group">
                         <input type="text" name="key" class="form-control" placeholder="Tìm kiếm">
@@ -15,10 +14,11 @@
                     <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
                 </form>
             </div>
+            <br>
             <div class="">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="btn btn-warning"><i class="fa  fa-archive"></i> Products </h4>
+                        <h4 class="btn btn-warning"><i class="fa  fa-archive"></i> Sản Phẩm </h4>
                         <div class="col-md-6 float-right">
                             <a href="{{ route('product.create') }}"class="btn btn-warning float-right"><i
                                     class="fa fa-plus"></i>
@@ -37,13 +37,14 @@
                                     <tr>
                                         <th class="serial">#</th>
                                         <th class="avatar">Product</th>
-                                        <th>ID</th>
-                                        <th>Tên</th>
-                                        <th>Mô tả</th>
-                                        <th>Giá</th>
-                                        <th>discount</th>
-                                        <th>Trạng thái</th>
-                                        <th>Hành Động</th>
+                                        <th class="text-center">ID</th>
+                                        <th class="text-center">Tên</th>
+                                        <th class="text-center" style="min-width: 300px">Mô tả</th>
+                                        <th class="text-center">Giá</th>
+                                        <th class="text-center">discount</th>
+                                        <th class="text-center">Trạng thái</th>
+                                        <th class="text-center">Ẩn / Hiện</th>
+                                        <th class="text-center">Hành Động</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -58,21 +59,36 @@
                                             <td class="avatar">
                                                 <div class="round-img">
                                                     <a href="#"><img class="rounded-circle"
-                                                            src="{{ asset('dashboard/images') }}/{{ $Product->image }}"
+                                                            src="{{ asset('fonts/images') }}/{{ $Product->image }}"
                                                             alt=""></a>
                                                 </div>
 
                                             </td>
-                                            <td> {{ $Product->id }} </td>
-                                            <td> <span class="name"> {{ $Product->name }}</span> </td>
-                                            <td> <span class="email"
+                                            <td class="text-center"> {{ $Product->id }} </td>
+                                            <td class="text-center"> <span class="name"> {{ $Product->name }}</span> </td>
+                                            <td class="text-center"> <span class="email"
                                                     style="max-width: 100px">{{ $Product->description }}</span> </td>
-                                            <td><span class="password">{{ $Product->price }}</span></td>
-                                            <td><span class="name">{{ $Product->discount }}</span></td>
-                                            <td>
-                                                <span class="badge badge-complete">Còn Hàng</span>
+                                            <td class="text-center"><span
+                                                    class="password">{{ number_format($Product->price, 3) }} VNĐ</span>
                                             </td>
-                                            <td>
+                                            <td class="text-center"><span
+                                                    class="name">{{ number_format($Product->discount, 3) }} VNĐ</span>
+                                            </td>
+                                            <td class="text-center">
+                                                @if ($Product->amount > 0)
+                                                    <span class="badge badge-complete">Còn Hàng</span>
+                                                @elseif ($Product->amount == 0)
+                                                    <span class="badge badge-danger">Hết Hàng</span>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">
+                                                @if ($Product->status === 0)
+                                                    <span class="badge badge-complete">Hiện</span>
+                                                @elseif ($Product->status === 1)
+                                                    <span class="badge badge-secondary">Ẩn</span>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">
                                                 <a href="{{ route('product.edit', $Product->id) }}"
                                                     class=" btn btn-warning">
                                                     <i class="fa fa-edit"></i> Sửa</a>
