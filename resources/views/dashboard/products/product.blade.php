@@ -8,7 +8,7 @@
             <div class="row-xl">
                 <form action="" method="GET" class="form-inline" role="form">
                     <div class="form-group">
-                        <input type="text" name="key" class="form-control" placeholder="Tìm kiếm">
+                        <input type="text" name="key" class="form-control" placeholder="Nhập tên sản phẩm">
                         {{-- <small id="helpId" class="text-muted">Help text</small> --}}
                     </div>
                     <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
@@ -82,9 +82,9 @@
                                                 @endif
                                             </td>
                                             <td class="text-center">
-                                                @if ($Product->status === 0)
+                                                @if ($Product->status == 0)
                                                     <span class="badge badge-complete">Hiện</span>
-                                                @elseif ($Product->status === 1)
+                                                @elseif ($Product->status == 1)
                                                     <span class="badge badge-secondary">Ẩn</span>
                                                 @endif
                                             </td>

@@ -2,7 +2,16 @@
 @section('title', 'Order')
 @section('body')
     <div style="padding-left: 20px">
-        <div class="col-sm">
+        <div class="col-sm"> <br>
+            <div class="row-xl">
+                <form action="" method="GET" class="form-inline" role="form">
+                    <div class="form-group">
+                        <input type="text" name="key" class="form-control" placeholder="Nhập mã đơn hàng">
+                    </div>
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+            <br>
             <div class="">
                 <div class="card">
                     <div class="card-body">

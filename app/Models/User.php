@@ -10,9 +10,6 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    public function blog(){
-        return $this->hasMany(blog::class,'user_id','id');
-    }
     public function order(){
         return $this->belongsTo(order::class,'user_id','id');
     }
@@ -41,6 +38,7 @@ class User extends Authenticatable
         'password',
         'avatar',
         'level',
+        'status',
         'description',
         'token',
     ];

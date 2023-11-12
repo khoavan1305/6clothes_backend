@@ -1,13 +1,12 @@
 @extends('dashboard.layouts.master')
-@section('title', 'User')
+@section('title', 'Tài Khoản')
 @section('body')
 
     <div class="col-xl-9 container-fluid">
         <div class="row-lg"><br>
             <form action="" method="GET" class="form-inline" role="form">
                 <div class="form-group">
-                    <input type="text" name="key" class="form-control" placeholder="Tìm kiếm">
-                    {{-- <small id="helpId" class="text-muted">Help text</small> --}}
+                    <input type="text" name="key" class="form-control" placeholder="Nhập Email">
                 </div>
                 <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
             </form>
@@ -17,7 +16,7 @@
             <div class="">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="btn btn-warning"><i class="fa fa-users"></i> Users </h4>
+                        <h4 class="btn btn-warning"><i class="fa fa-users"></i> Tài khoản </h4>
                         <div class="col-md-6 float-right">
                             <a href="{{ route('user.create') }}"class="btn btn-warning float-right"><i
                                     class="fa fa-plus"></i>
@@ -41,6 +40,7 @@
                                         <th style="min-width: 100px">Tên</th>
                                         <th>Email</th>
                                         <th style="min-width: 100px">Cấp độ tài khoản</th>
+                                        <th style="min-width: 100px">Tình trạng</th>
                                         <th>Hành Động</th>
                                     </tr>
                                 </thead>
@@ -64,10 +64,17 @@
                                             <td> <span class="name"> {{ $User->name }}</span> </td>
                                             <td> <span class="email">{{ $User->email }}</span> </td>
                                             <td>
-                                                @if ($User->level === 1)
+                                                @if ($User->level == 1)
                                                     <span class="name">Quản trị</span>
-                                                @elseif ($User->level === 2)
+                                                @elseif ($User->level == 2)
                                                     <span class="name">Khách hàng</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($User->status == 1)
+                                                    <span class="badge badge-complete">Hoạt Động</span>
+                                                @elseif ($User->status == 0)
+                                                    <span class="badge badge-danger">Vô Hiệu Hóa</span>
                                                 @endif
                                             </td>
                                             <td>
@@ -76,7 +83,13 @@
                                                 <a href="{{ route('user.destroy', $User->id) }}"
                                                     class=" btn btn-danger btndelete"><i class="fa fa-trash"></i>
                                                     Xóa</a>
-
+                                                <hr>
+                                                <a href="{{ route('unblock', $User->id) }}"
+                                                    class=" btn btn-success w-50 btnupdate"><i class="fa fa-key"></i>
+                                                    Mở</a>
+                                                <a href="{{ route('block', $User->id) }}"
+                                                    class=" btn btn-danger btnupdate"><i class="fa fa-lock"></i>
+                                                    Khóa</a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -86,23 +99,15 @@
                                 @csrf
                                 @method('DELETE')
                             </form>
-                        </div> <!-- /.table-stats -->
-
+                        </div>
                     </div>
-
-
                 </div> <!-- /.card -->
                 <div class="float-right">
                     {{ $Users->appends(request()->all())->links() }}
-
                 </div>
             </div> <!-- /.col-lg-8 -->
-
-
         </div>
     </div>
-
-
 @endsection
 @section('js')
     <script>

@@ -43,11 +43,6 @@
             'route'=> 'comment.index'
 
         ],
-        [
-            'label'=> 'Thêm bình luận',
-            'route'=> 'comment.create'
-
-        ],
     ],
         ],
         [
@@ -61,6 +56,51 @@
         ],
     ],
         ],
+        [
+            'label'=> 'Quản lý Thương Hiệu',
+            'route'=> 'brand.index',
+            'icon'=> ' fa-archive',
+            'item' => [
+                [
+                'label'=> 'Danh sách thương hiệu',
+                'route'=> 'brand.index'
+            ],
+            [
+                'label'=> 'Thêm thương hiệu',
+                'route'=> 'brand.create'
+            ],
+        ],
+            ],
+        [
+            'label'=> 'Quản lý danh mục',
+            'route'=> 'category.index',
+            'icon'=> ' fa-archive',
+            'item' => [
+                [
+                'label'=> 'Danh sách danh mục',
+                'route'=> 'category.index'
+            ],
+            [
+                'label'=> 'Thêm danh mục',
+                'route'=> 'category.create'
+            ],
+        ],
+            ],
+        [
+            'label'=> 'Quản lý voucher',
+            'route'=> 'voucher.index',
+            'icon'=> ' fa-archive',
+            'item' => [
+                [
+                'label'=> 'Danh sách voucher',
+                'route'=> 'voucher.index'
+            ],
+            [
+                'label'=> 'Thêm voucher',
+                'route'=> 'voucher.create'
+            ],
+        ],
+            ],
     ]
 
 

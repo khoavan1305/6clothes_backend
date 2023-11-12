@@ -64,10 +64,24 @@ class UserController extends Controller
         $user->update($request->all());
         return  redirect()->route('user.index')->with('thongbao','Cập nhật thành công');
     }
+    public function unblock(Request $request,User  $user)
+    {
+        $user->update([
+            'status'=> 1,
+        ]);
+        return  redirect()->route('user.index')->with('thongbao','Cập nhật thành công');
+    }
+    public function block(Request $request,User  $user)
+    {
+        $user->update([
+            'status'=> 0,
+        ]);
+        return  redirect()->route('user.index')->with('thongbao','Cập nhật thành công');
+    }
     public function destroy(User $user)
     {
             $user->delete();
-            return  redirect()->route('user.index')->with('thongbao','Xóa thành công');
+            return  redirect()->route('user.index')->with('thongbao','Cập nhật thành công');
     }
     public function login(){
         return view('dashboard.login');
@@ -78,10 +92,15 @@ class UserController extends Controller
             'email' => 'required',
             'password' => 'required',
         ]);
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'status' => 1])) {
             $request->session()->regenerate();
            
             return redirect()->intended('/admin');
+        }
+        elseif (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'status' => 0])) {
+            return back()->withErrors([
+                'password' => 'Tài khoản bị vô hiệu hóa',
+            ]);
         }
 
         return back()->withErrors([
@@ -95,4 +114,4 @@ class UserController extends Controller
         $request->session()->regenerateToken();
         return redirect('/login');
     }
-}
+}   

@@ -14,4 +14,10 @@ class brand extends Model
     public function product(){
         return $this->hasMany(product::class,'brand_id','id');
     }
+    public function scopeSearch($query){
+        if($key=request()->key){
+            $query=$query->where('name','like','%'.$key.'%');    
+        }
+        return $query;
+    }
 }

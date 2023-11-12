@@ -16,5 +16,11 @@ class product_comment extends Model
     public function products(){
         return $this->belongsTo(product::class,'product_id','id');
     }
+    public function scopeSearch($query){
+        if($key=request()->key){
+            $query=$query->where('email','like','%'.$key.'%');    
+        }
+        return $query;
+    }
     
 }

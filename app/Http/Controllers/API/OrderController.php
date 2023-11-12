@@ -70,7 +70,7 @@ class OrderController extends Controller
             'phone' => $request->phone,
             'pttt' => $request->pttt,
             'note' => $request->note,
-            'total' => $request->total,
+            'total' => $request->total + $request->ship - $request->codevoucher,
             'token' => $token,
         ]);
         $orderdetaill = Cache::get("cart", "default");
@@ -165,7 +165,7 @@ class OrderController extends Controller
     }
     public function getOderUser(string $id)
     {
-        $order = order::orderBy('user_id', 'asc')->first();
+        $order = order::orderBy('id', 'desc')->first();
         if(is_null($order)){
             $arr = [
                 'status' => False,

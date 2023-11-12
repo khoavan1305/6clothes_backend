@@ -253,7 +253,7 @@ class UserController extends Controller
             return response()->json($response);
         }
         $credentials = $request->only('email','password');
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'status' => 1])) {
             $token = Str::random(20);
             $user = Auth::user();
             $user->token = $token;
@@ -264,6 +264,14 @@ class UserController extends Controller
                 'code'=> 200,
                 'Message'=> "Đăng nhập thành công", 
                 'data'=> Auth::user(),
+            ];
+            return response()->json($arr);
+        }
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'status' => 0])) {
+            $arr=[
+                'status'=> false,
+                'code'=> 409,
+                'Message'=> "Tài khoản bị vô hiệu hóa", 
             ];
             return response()->json($arr);
         }

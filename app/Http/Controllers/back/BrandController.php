@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\back;
 
 use App\Http\Controllers\Controller;
-use App\Models\Brand;
-use App\Models\ProductCategory;
+use App\Models\brand;
+use App\Models\product;
 use Illuminate\Http\Request;
 
 class BrandController extends Controller
@@ -14,9 +14,8 @@ class BrandController extends Controller
      */
     public function index()
     {
-        $Brands=Brand::paginate('5');
-        $Product_categorys=ProductCategory::paginate('5');
-        return view('dashboard.brand',compact('Brands','Product_categorys'));
+        $Brands=brand::search()->paginate('5');
+        return view('dashboard.brands.brand',compact('Brands'));
     }
 
     /**
@@ -24,7 +23,7 @@ class BrandController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.brands.createbrand');
     }
 
     /**
@@ -32,7 +31,11 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:25',
+        ]);
+        brand::create($request->all());
+        return redirect()->route('brand.index')->with('thongbao','Thêm Thành Công');  
     }
 
     /**
@@ -48,7 +51,7 @@ class BrandController extends Controller
      */
     public function edit(Brand $brand)
     {
-        //
+        return view('dashboard.brands.editbrand',compact('brand'));
     }
 
     /**
@@ -56,7 +59,11 @@ class BrandController extends Controller
      */
     public function update(Request $request, Brand $brand)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:25',
+        ]);
+        $brand->update($request->all());
+        return  redirect()->route('brand.index')->with('thongbao','Cập nhật thành công');
     }
 
     /**
@@ -64,6 +71,7 @@ class BrandController extends Controller
      */
     public function destroy(Brand $brand)
     {
-        //
+        $brand->delete();
+        return  redirect()->route('brand.index')->with('thongbao','Cập nhật thành công');
     }
 }

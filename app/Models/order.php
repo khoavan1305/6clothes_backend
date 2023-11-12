@@ -17,4 +17,10 @@ class order extends Model
     public function user(){
         return $this->belongsTo(User::class,'user_id','id');
     }
+    public function scopeSearch($query){
+        if($key=request()->key){
+            $query=$query->where('id',$key);    
+        }
+        return $query;
+    }
 }

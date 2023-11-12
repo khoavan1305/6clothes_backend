@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('avatar')->default("avatar1.png");
             $table->string('address')->nullable();
             $table->tinyInteger('level')->default(2);
+            $table->tinyInteger('status')->default(1);
             $table->rememberToken();
             $table->string('token',20)->nullable();
             $table->timestamps();

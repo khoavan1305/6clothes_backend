@@ -112,12 +112,12 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="control-label">Ản Hiện Sản Phẩm</label> <br>
-                                @if ($product->status === 0)
+                                @if ($product->status == 0)
                                     <input type="radio" name='status' id="hien" value="0" checked>
                                     <label for="hien">Hiện sản phẩm</label>
                                     <input type="radio" name="status" id="an"value="1">
                                     <label for="an">Ẩn sản phẩm</label>
-                                @elseif ($product->status === 1)
+                                @elseif ($product->status == 1)
                                     <input type="radio" name='status' id="hien" value="0">
                                     <label for="hien">Hiện sản phẩm</label>
                                     <input type="radio" name="status" id="an"value="1" checked>

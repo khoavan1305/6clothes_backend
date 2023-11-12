@@ -61,7 +61,7 @@ class ProductCommentController extends Controller
     }
     public function show(string $id)
     {
-        $productCmt = product_comment::where('product_id',$id)->get();
+        $productCmt = product_comment::where('product_id',$id)->where('status',0)->get();
         if(is_null($productCmt)){
             $arr = [
                 'status' => False,

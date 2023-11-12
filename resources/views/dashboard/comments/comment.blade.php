@@ -6,6 +6,16 @@
     <div class="orders container">
         <div class="row">
             <div class="">
+                <br>
+                <div class="row-xl">
+                    <form action="" method="GET" class="form-inline" role="form">
+                        <div class="form-group">
+                            <input type="text" name="key" class="form-control" placeholder="Nhập Email">
+                        </div>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                    </form>
+                </div>
+                <br>
                 <div class="card">
                     <div class="card-body">
                         <h4 class="btn btn-warning">Đánh Giá Sản Phẩm</h4>

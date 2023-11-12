@@ -11,17 +11,17 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $product = product::search()->get();
+        $product = product::where('status',0)->search()->get();
         return response()->json($product);
     }
     public function NewP()
     {
-        $product = product::where('featured',2)->limit(8)->get();
+        $product = product::where('featured',2)->where('status',0)->limit(8)->get();
         return response()->json($product);
     }
     public function HotP()
     {
-        $product = product::where('featured',1)->limit(8)->get();
+        $product = product::where('featured',1)->where('status',0)->limit(8)->get();
         return response()->json($product);
     }
     public function create()
@@ -79,6 +79,9 @@ class ProductController extends Controller
     public function show(string $id)
     {
         $product = product::find($id);
+        //   $product->update([
+        //     'slx'=>$product['slx'] + 1
+        //           ]);
         if(is_null($product)){
             $arr = [
                 'status' => False,
@@ -96,9 +99,16 @@ class ProductController extends Controller
         ];
         return response()->json($arr);
     }
+    public function slx(string $id)
+    {
+        $product = product::find($id);
+          $product->update([
+            'slx'=>$product['slx'] + 1
+                  ]);
+    }
     public function show_category_id(string $id)
     {
-        $product_category = product::where('product_category_id',$id)->limit(4)->get();
+        $product_category = product::where('product_category_id',$id)->where('status',0)->limit(4)->get();
         if(is_null($product_category)){
             $arr = [
                 'status' => False,

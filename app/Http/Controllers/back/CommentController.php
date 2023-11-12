@@ -13,7 +13,7 @@ class CommentController extends Controller
      */
     public function index()
     {
-        $Product_comment=product_comment::paginate('10');
+        $Product_comment=product_comment::search()->paginate('10');
         return view('dashboard.comments.comment',compact('Product_comment'));
     }
 

@@ -13,7 +13,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $Orders = order::paginate(5);
+        $Orders = order::search()->paginate(5);
         return view('dashboard.orders.order',compact('Orders'));
     }
 
